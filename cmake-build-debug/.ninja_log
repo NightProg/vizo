@@ -1,0 +1,7 @@
+# ninja log v6
+5	157	1741510546611715600	CMakeFiles/vizo.dir/src/package/package_info.c.o	5f0a562d602849ea
+2	144	1741510592933776577	CMakeFiles/vizo.dir/src/package/json.c.o	c3091e2831bbc607
+2	112	1741510685525978027	CMakeFiles/vizo.dir/src/main.c.o	3a2f308fbc660709
+3	343	1741510027840737398	CMakeFiles/vizo.dir/main.c.o	87ad0abb29a0af53
+2	185	1741514061007024948	build.ninja	80fda7adcadb2129
+112	207	1741510685635856579	vizo	76dca8d19224e4a9

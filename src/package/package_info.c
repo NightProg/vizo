@@ -84,6 +84,21 @@ package_info_t *package_info_from_json(json_t *json) {
         package_info->author = strdup(author->value.string);
     }
 
+    json_value_t *license = json_object_get(value->value.object, "license");
+    if (license != NULL && license->type == JSON_TYPE_STRING) {
+        package_info->license = strdup(license->value.string);
+    }
 
+    json_value_t *build_tool = json_object_get(value->value.object, "build-tool");
+    if (build_tool != NULL && build_tool->type == JSON_TYPE_STRING) {
+        if (strcmp(build_tool->value.string, "cmake") == 0) {
+            package_info->build_tool = BUILD_TOOL_CMAKE;
+        } else if (strcmp(build_tool->value.string, "make") == 0) {
+            package_info->build_tool = BUILD_TOOL_MAKE;
+        } else if (strcmp(build_tool->value.string, "ninja") == 0) {
+            package_info->build_tool = BUILD_TOOL_NINJA;
+        }
+    }
 
+    return package_info;
 }

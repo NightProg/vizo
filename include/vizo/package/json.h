@@ -2,6 +2,7 @@
 #define VIZO_JSON_H
 
 #define JSON_ERROR(x) { .type = JSON_TYPE_INVALID, .error = x }
+#define WHITESPACE(f)     if (json_is_whitespace(json_str[*index])) {(*index)++;return f(json_str, index);}
 
 
 typedef struct json_value json_value_t;
@@ -31,6 +32,7 @@ typedef enum json_result {
     JSON_ERROR_INVALID_VALUE,
     JSON_ERROR_INVALID_BOOL,
     JSON_ERROR_INVALID_NULL,
+    JSON_ERROR_INVALID_KEY_VALUE_SEPARATOR,
 
     JSON_ERROR_INVALID_TYPE,
     JSON_ERROR_INVALID_INDEX,
@@ -45,11 +47,13 @@ typedef struct json_key {
 typedef struct json_object {
     json_key_t *keys;
     int key_count;
+    json_result_t error;
 } json_object_t;
 
 typedef struct json_array {
     json_value_t **values;
     int value_count;
+    json_result_t error;
 } json_array_t;
 
 struct json_value {
@@ -71,21 +75,39 @@ typedef struct json {
 } json_t;
 
 json_value_t *json_value_new(json_type_t type);
+int json_value_is_valid(json_value_t *value);
+void json_value_print(json_value_t *value);
 void json_value_free(json_value_t *value);
 
 json_object_t *json_object_new(void);
 json_result_t json_object_add(json_object_t *object, const char *key, json_value_t *value);
 json_value_t *json_object_get(json_object_t *object, const char *key);
+int json_object_is_valid(json_object_t *object);
+void json_object_print(json_object_t *object);
 void json_object_free(json_object_t *object);
 
 json_array_t *json_array_new(void);
 json_result_t json_array_add(json_array_t *array, json_value_t *value);
 json_value_t *json_array_get(json_array_t *array, int index);
+int json_array_is_valid(json_array_t *array);
+void json_array_print(json_array_t *array);
 void json_array_free(json_array_t *array);
 
 
 
+
+
+
 json_t *json_parse(const char *json_str);
+json_value_t *json_parse_value(const char *json_str, json_type_t type, int *index);
+json_value_t *json_parse_any_value(const char *json_str, int *index);
+json_object_t *json_parse_object(const char *json_str, int *index);
+json_array_t *json_parse_array(const char *json_str, int *index);
+char* json_parse_string(const char *json_str, int *index);
+double json_parse_number(const char *json_str, int *index);
+int json_parse_bool(const char *json_str, int *index);
+int json_parse_null(const char *json_str, int *index);
+int json_is_whitespace(char c);
 void json_free(json_t *json);
 
 
