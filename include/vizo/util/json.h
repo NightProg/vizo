@@ -99,6 +99,7 @@ void json_array_free(json_array_t *array);
 
 
 json_t *json_parse(const char *json_str);
+json_t *json_parse_file(const char *file_path);
 json_value_t *json_parse_value(const char *json_str, json_type_t type, int *index);
 json_value_t *json_parse_any_value(const char *json_str, int *index);
 json_object_t *json_parse_object(const char *json_str, int *index);

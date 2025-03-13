@@ -1,7 +1,7 @@
 #ifndef VIZO_PACKAGE_INFO_H
 #define VIZO_PACKAGE_INFO_H
 
-#include <vizo/package/json.h>
+#include <vizo/util/json.h>
 
 #define PACKAGE_BUILD_TOOL_DEFAULT BUILD_TOOL_MAKE
 #define PACKAGE_BUILD_TYPE_DEFAULT BUILD_TYPE_DEBUG
@@ -21,11 +21,6 @@ typedef enum package_build_type {
     BUILD_TYPE_RELEASE
 } package_build_type_t;
 
-typedef enum package_build_tool {
-    BUILD_TOOL_CMAKE,
-    BUILD_TOOL_MAKE,
-    BUILD_TOOL_NINJA
-} package_build_tool_t;
 
 typedef struct package_info {
     char *name;
@@ -33,7 +28,6 @@ typedef struct package_info {
     char *description;
     char *author;
     char *license;
-    package_build_tool_t build_tool;
 } package_info_t;
 
 package_info_t *package_info_new(void);
