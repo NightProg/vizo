@@ -23,7 +23,8 @@ exe.include_dir("include")
 ```json
 {
 	"name": "helloworld",
-	"build": "mybuild.py"
+	"build": "mybuild.py",
+	"default-profile": "dev"
 	"deps": {
 		"llvm": "url+",
 		"yacc": "12.0"
@@ -32,7 +33,8 @@ exe.include_dir("include")
 ```
 **Usage**:
 ```
-vizo build
+vizo build // will build with the profile dev (default profile)
+vizo build --profile release 
 ```
 
 **Note**: running your build script with python will not work. Vizo will setup and call for you 
